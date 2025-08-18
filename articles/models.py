@@ -33,3 +33,19 @@ class Article(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+
+class Comment(models.Model):
+    comment = models.CharField(max_length=140)
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name="comments"
+    )
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments"
+    )
+
+    def __str__(self):
+        return self.comment
+
+    def get_absolute_url(self):
+        return reverse("articles:list")
