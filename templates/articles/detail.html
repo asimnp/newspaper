@@ -8,9 +8,11 @@
         <p>by {{ object.author }} | {{ object.publish }}</p>
         <p>{{ object|linebreaks }}</p>
     </div>
-    <p>
-        <a href="{% url 'articles:edit' article.pk %}">Edit</a>
-        <a href="{% url 'articles:delete' article.pk %}">Delete</a>
-    </p>
+    {% if article.author.pk == request.user.pk %}
+        <p>
+            <a href="{% url 'articles:edit' article.pk %}">Edit</a>
+            <a href="{% url 'articles:delete' article.pk %}">Delete</a>
+        </p>
+    {% endif %}
     <p>Back to <a href="{% url 'articles:list' %}">all articles</a>.</p>
 {% endblock content %}
