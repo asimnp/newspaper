@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
-from django.utils.text import Truncator
+from django.utils.text import Truncator, slugify
 from django.urls import reverse
 
 
@@ -28,3 +28,8 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse("articles:detail", kwargs={"pk": self.pk})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
