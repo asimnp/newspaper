@@ -8,6 +8,14 @@
         <p>by {{ object.author }} | {{ object.publish }}</p>
         <p>{{ object|linebreaks }}</p>
     </div>
+
+    <hr>
+    <h4>Comments</h4>
+    {% for comment in article.comments.all %}
+        <p>{{ comment.author }} &middot; {{ comment }}</p>
+    {% endfor %}
+    <hr>
+
     {% if article.author.pk == request.user.pk %}
         <p>
             <a href="{% url 'articles:edit' article.pk %}">Edit</a>
