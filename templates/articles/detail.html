@@ -1,0 +1,16 @@
+{% extends "base_public.html" %}
+
+{% block title %}{{ object.title }}{% endblock title %}
+
+{% block content %}
+    <div class="article-entry">
+        <h2>{{ object.title }}</h2>
+        <p>by {{ object.author }} | {{ object.publish }}</p>
+        <p>{{ object|linebreaks }}</p>
+    </div>
+    <p>
+        <a href="{% url 'articles:edit' article.pk %}">Edit</a>
+        <a href="{% url 'articles:delete' article.pk %}">Delete</a>
+    </p>
+    <p>Back to <a href="{% url 'articles:list' %}">all articles</a>.</p>
+{% endblock content %}

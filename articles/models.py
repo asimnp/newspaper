@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 from django.utils.text import Truncator
+from django.urls import reverse
 
 
 class Article(models.Model):
@@ -24,3 +25,6 @@ class Article(models.Model):
 
     def __str__(self):
         return f"{Truncator(self.title).chars(50,  truncate="...")}"
+
+    def get_absolute_url(self):
+        return reverse("articles:detail", kwargs={"pk": self.pk})
